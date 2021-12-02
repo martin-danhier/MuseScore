@@ -5,6 +5,17 @@
       "version": "0.2.0",
       "configurations": [
             {
+                  "name": "(Windows MSVC) Launch",
+                  "type": "cppvsdbg",
+                  "request": "launch",
+                  "program": "${workspaceFolder}/builds/Win-Qt5.15.2-msvc2019_64-VS16-Debug/install/bin/MuseScore4.exe",
+                  "args": [],
+                  "stopAtEntry": false,
+                  "environment": [],
+                  "console": "integratedTerminal",
+                  "preLaunchTask": "Build (Debug)"
+            },
+            {
                   "name": "gdb debug from debug build",
                   "type": "cppdbg",
                   "request": "launch",

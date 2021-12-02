@@ -43,6 +43,7 @@
 #include "view/palettepropertiesmodel.h"
 #include "view/palettecellpropertiesmodel.h"
 #include "view/drumsetpanelview.h"
+#include "view/timesignaturepropertiesmodel.h"
 
 #include "view/widgets/masterpalette.h"
 #include "view/widgets/specialcharactersdialog.h"
@@ -93,8 +94,10 @@ void PaletteModule::resolveImports()
         ir->registerUri(Uri("musescore://palette/specialcharacters"),
                         ContainerMeta(ContainerType::QWidgetDialog, Ms::SpecialCharactersDialog::static_metaTypeId()));
 
+        // ir->registerUri(Uri("musescore://palette/timesignatureproperties"),
+        //                 ContainerMeta(ContainerType::QWidgetDialog, Ms::TimeSignaturePropertiesDialog::static_metaTypeId()));
         ir->registerUri(Uri("musescore://palette/timesignatureproperties"),
-                        ContainerMeta(ContainerType::QWidgetDialog, Ms::TimeSignaturePropertiesDialog::static_metaTypeId()));
+                        ContainerMeta(ContainerType::QmlDialog, "MuseScore/Palette/TimeSignaturePropertiesDialog.qml"));
 
         ir->registerUri(Uri("musescore://palette/editdrumset"),
                         ContainerMeta(ContainerType::QWidgetDialog, Ms::EditDrumsetDialog::static_metaTypeId()));
@@ -138,9 +141,10 @@ void PaletteModule::registerUiTypes()
     qmlRegisterType<PalettePropertiesModel>("MuseScore.Palette", 1, 0, "PalettePropertiesModel");
     qmlRegisterType<PaletteCellPropertiesModel>("MuseScore.Palette", 1, 0, "PaletteCellPropertiesModel");
     qmlRegisterType<DrumsetPanelView>("MuseScore.Palette", 1, 0, "DrumsetPanelView");
+    qmlRegisterType<TimeSignaturePropertiesModel>("MuseScore.Palette", 1, 0, "TimeSignaturePropertiesModel");
 
     qRegisterMetaType<SpecialCharactersDialog>("SpecialCharactersDialog");
-    qRegisterMetaType<TimeSignaturePropertiesDialog>("TimeSignaturePropertiesDialog");
+    // qRegisterMetaType<TimeSignaturePropertiesDialog>("TimeSignaturePropertiesDialog");
     qRegisterMetaType<Ms::EditDrumsetDialog>("EditDrumsetDialog");
 
     ioc()->resolve<ui::IUiEngine>(moduleName())->addSourceImportPath(palette_QML_IMPORT);

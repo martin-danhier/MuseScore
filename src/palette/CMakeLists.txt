@@ -69,6 +69,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/palettecellpropertiesmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/drumsetpanelview.h
     ${CMAKE_CURRENT_LIST_DIR}/view/drumsetpanelview.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/timesignaturepropertiesmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/timesignaturepropertiesmodel.cpp
     )
 
 set(MODULE_UI
