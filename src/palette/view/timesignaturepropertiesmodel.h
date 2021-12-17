@@ -30,15 +30,16 @@ class TimeSignaturePropertiesModel : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY propertiesChanged)
-
 public:
-    QString name() const;
+//    QString name() const;
+
+    Q_INVOKABLE QString fourFourText() const;
+    Q_INVOKABLE QString allaBreveText() const;
 
     Q_INVOKABLE void load();
 
-public slots:
-    void setName(const QString &name);
+//public slots:
+//    void setName(const QString &name);
 
 signals:
     void propertiesChanged();

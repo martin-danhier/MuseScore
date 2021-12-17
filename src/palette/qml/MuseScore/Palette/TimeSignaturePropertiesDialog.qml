@@ -50,6 +50,25 @@ StyledDialogView {
         spacing: 9
 
         GroupBox {
+            title: "Test"
+
+            RoundedRadioButton {
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: "Test 1"
+                checked: true
+
+                onToggled: {
+                    console.log("Toggled")
+                }
+            }
+
+            RoundedRadioButton {
+                text: "Test 2"
+            }
+        }
+
+        GroupBox {
             title: qsTrc("palette", "Time Signature Properties")
 
             Layout.fillWidth: true
@@ -93,14 +112,14 @@ StyledDialogView {
 
                         // Four four
                         RoundedRadioButton {
-                            text: qsTrc("palette", "C")
+                            text: propertiesModel.fourFourText()
 
                             Layout.columnSpan: 2
                         }
 
                         // Alla breve
                         RoundedRadioButton {
-                            text: qsTrc("palette", "Alla breve")
+                            text: propertiesModel.allaBreveText()
 
                             Layout.columnSpan: 2
                         }

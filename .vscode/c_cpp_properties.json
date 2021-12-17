@@ -1,6 +1,14 @@
 {
     "configurations": [
         {
+            "name": "Windows",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${QTDIR}/include/**"
+            ],
+            "configurationProvider": "numaru.vscode-cmake-lite"
+        },
+        {
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
@@ -45,7 +53,8 @@
                     "${workspaceFolder}/zerberus/",
                     "${workspaceFolder}/*"
                 ]
-            }
+            },
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

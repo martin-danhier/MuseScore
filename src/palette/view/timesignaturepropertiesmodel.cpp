@@ -22,6 +22,8 @@
 
 #include "timesignaturepropertiesmodel.h"
 
+#include "ui/view/musicalsymbolcodes.h"
+
 using namespace mu::palette;
 
 void TimeSignaturePropertiesModel::load() {
@@ -29,12 +31,18 @@ void TimeSignaturePropertiesModel::load() {
     m_name = "Test name";
 }
 
+// Getters for the musical symbol strings
 
-QString TimeSignaturePropertiesModel::name() const
+QString TimeSignaturePropertiesModel::fourFourText() const
 {
-    return m_name;
+    return musicalSymbolToString(mu::ui::MusicalSymbolCodes::Code::TIMESIG_COMMON);
 }
 
-void TimeSignaturePropertiesModel::setName(const QString &name) {
-    m_name = name;
+QString TimeSignaturePropertiesModel::allaBreveText() const
+{
+    return musicalSymbolToString(mu::ui::MusicalSymbolCodes::Code::TIMESIG_CUT);
 }
+
+//void TimeSignaturePropertiesModel::setName(const QString &name) {
+//    m_name = name;
+//}
