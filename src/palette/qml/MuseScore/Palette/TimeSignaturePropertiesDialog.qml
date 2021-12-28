@@ -27,6 +27,8 @@ import MuseScore.Ui 1.0
 import MuseScore.UiComponents 1.0
 import MuseScore.Palette 1.0
 
+import "internal"
+
 StyledDialogView {
     id: root
 
@@ -49,6 +51,7 @@ StyledDialogView {
         width: parent.width
         spacing: 9
 
+
         GroupBox {
             title: qsTrc("palette", "Time Signature Properties")
 
@@ -60,61 +63,20 @@ StyledDialogView {
 
                 // Appearance
                 GroupBox {
+
+
                     title: qsTrc("palette", "Appearance (visual only; will not affect actual measure duration)")
 
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                    GridLayout {
-                        columns: 2
+                    TimeSignatureAppearanceSettings {
+                        id: timeSignatureAppearanceSettings
+                        timeSignatureModel: propertiesModel
 
-                        // Text
-                        RoundedRadioButton {
-                            text: qsTrc("palette", "Text:")
-                        }
+                    
 
-                        Row {
-                            spacing: 5
-
-                            TextInputField {
-                                height: 30
-                                width: 100
-                            }
-
-                            Label {
-                                text: "/"
-                            }
-
-                            TextInputField {
-                                height: 30
-                                width: 100
-                            }
-                        }
-
-                        // Four four
-                        RoundedRadioButton {
-                            text: qsTrc("palette", "C")
-
-                            Layout.columnSpan: 2
-                        }
-
-                        // Alla breve
-                        RoundedRadioButton {
-                            text: qsTrc("palette", "Alla breve")
-
-                            Layout.columnSpan: 2
-                        }
-
-                        // Other
-                        RoundedRadioButton {
-                            text: qsTrc("palette", "Other:")
-                        }
-
-                        Dropdown {
-                            width: 100
-                            height: 30
-
-                        }
+                        anchors.fill: parent
                     }
 
                 }
@@ -149,10 +111,12 @@ StyledDialogView {
                 text: qsTrc("global", "OK")
                 accentButton: true
             }
-
-
         }
-
-
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.1;height:500;width:500}D{i:6;invisible:true}
+}
+##^##*/

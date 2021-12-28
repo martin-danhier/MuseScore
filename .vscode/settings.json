@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "*.html": "html",
+        "pylintrc": "ini",
         "array": "cpp",
         "atomic": "cpp",
         "*.tcc": "cpp",
@@ -45,8 +47,47 @@
         "memory": "cpp",
         "qgroupbox": "cpp",
         "qbytearray": "cpp",
-        "qcombobox": "cpp"
+        "qrectf": "cpp"
     },
     "cmake.buildDirectory": "${workspaceRoot}/build.debug",
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "explorerExclude.backup": null,
+    "favorites.resources": [
+        {
+            "filePath": "src\\palette\\qml\\MuseScore\\Palette\\TimeSignaturePropertiesDialog.qml",
+            "group": "Default"
+        },
+        {
+            "filePath": "src\\palette\\qml\\MuseScore\\Palette\\internal\\TimeSignatureAppearanceSettings.qml",
+            "group": "Default"
+        },
+        {
+            "filePath": "src\\project\\qml\\MuseScore\\Project\\internal\\TimeSignatureSettings.qml",
+            "group": "Default"
+        },
+        {
+            "filePath": "src\\project\\view\\additionalinfomodel.h",
+            "group": "Default"
+        },
+        {
+            "filePath": "src\\project\\view\\additionalinfomodel.cpp",
+            "group": "Default"
+        },
+        {
+            "filePath": "src\\palette\\view\\timesignaturepropertiesmodel.cpp",
+            "group": "Default"
+        },
+        {
+            "filePath": "src\\palette\\view\\timesignaturepropertiesmodel.h",
+            "group": "Default"
+        }
+    ]
 }

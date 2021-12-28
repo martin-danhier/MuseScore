@@ -22,19 +22,27 @@
 
 #include "timesignaturepropertiesmodel.h"
 
+#include "ui/view/musicalsymbolcodes.h"
+
 using namespace mu::palette;
 
 void TimeSignaturePropertiesModel::load() {
     int a = 2;
-    m_name = "Test name";
 }
 
-
-QString TimeSignaturePropertiesModel::name() const
+int TimeSignaturePropertiesModel::currentAppearanceType() const
 {
-    return m_name;
+    return m_currentAppearanceType;
 }
 
-void TimeSignaturePropertiesModel::setName(const QString &name) {
-    m_name = name;
+void TimeSignaturePropertiesModel::setCurrentAppearanceType(int newType)
+{
+    auto appearanceType = static_cast<TimeSigAppearanceType>(newType);
+    if (m_currentAppearanceType == appearanceType) {
+        return;
+    }
+
+    m_currentAppearanceType = appearanceType;
+    emit currentAppearanceTypeChanged();
 }
+

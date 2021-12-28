@@ -10,6 +10,7 @@
         <file>qml/MuseScore/Palette/internal/PaletteGrid.qml</file>
         <file>qml/MuseScore/Palette/internal/PaletteTree.qml</file>
         <file>qml/MuseScore/Palette/internal/PlaceholderManager.qml</file>
+        <file>qml/MuseScore/Palette/internal/TimeSignatureAppearanceSettings.qml</file>
         <file>qml/MuseScore/Palette/internal/TreePaletteHeader.qml</file>
         <file>qml/MuseScore/Palette/internal/utils.js</file>
         <file>qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml</file>
