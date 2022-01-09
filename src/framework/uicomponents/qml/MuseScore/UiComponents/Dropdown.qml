@@ -35,10 +35,16 @@ Item {
     property alias count: view.count
     property string textRole: "text"
     property string valueRole: "value"
+    property string iconRole: "icon"
+
+    property bool showLabelText: true
+    property string iconFontFamily: ui.theme.iconsFont.family
+    property int iconFontPixelSize: 20
 
     property int currentIndex: 0
     property string currentText: "--"
     property string currentValue: ""
+    property int currentIconCode: IconCode.NONE
 
     property string displayText : root.currentText
 
@@ -67,10 +73,12 @@ Item {
             if (!(root.currentIndex >= 0 && root.currentIndex < root.count)) {
                 root.currentText = "--"
                 root.currentValue = ""
+                root.currentIconCode = IconCode.NONE
             }
 
             root.currentText = root.valueFromModel(root.currentIndex, root.textRole, "")
             root.currentValue = root.valueFromModel(root.currentIndex, root.valueRole, "")
+            root.currentIconCode = root.valueFromModel(root.currentIndex, root.iconRole, IconCode.NONE)
         }
     }
 
@@ -79,10 +87,19 @@ Item {
             return def
         }
 
+        if (roleName === "icon") {
+            console.log(root.model[index])
+        }
+
         // Simple models (like JS array) with single predefined role name - modelData
         if (root.model[index] !== undefined) {
             if (root.model[index][roleName] === undefined) {
-                return root.model[index]
+                // If the item has no such role but is usable as a value, return it (ex: model is a list of strings)
+                if (typeof(root.model[index]) === typeof(def)){
+                    return root.model[index]
+                }
+                // Otherwise, return the default value
+                return def
             }
 
             return root.model[index][roleName]
@@ -150,6 +167,11 @@ Item {
         id: mainItem
         anchors.fill: parent
         text: root.displayText
+        iconCode: root.currentIconCode
+
+        iconFontFamily: root.iconFontFamily
+        iconFontPixelSize: root.iconFontPixelSize
+        showText: root.showLabelText
 
         navigation.accessible.role: MUAccessible.ComboBox
 
@@ -305,6 +327,11 @@ Item {
 
                         selected: model.index === root.currentIndex && popup.opened
                         text: root.valueFromModel(model.index, root.textRole, "")
+
+                        iconCode: root.valueFromModel(model.index, root.iconRole, IconCode.NONE)
+                        iconFontFamily: root.iconFontFamily
+                        iconFontPixelSize: root.iconFontPixelSize
+                        showText: root.showLabelText
 
                         onSelectedChanged: {
                             if (!item.navigation.active && item.selected) {

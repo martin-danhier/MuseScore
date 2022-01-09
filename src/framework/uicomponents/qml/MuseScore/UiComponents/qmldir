@@ -40,6 +40,7 @@ NumberInputField 1.0 NumberInputField.qml
 TimeInputField 1.0 TimeInputField.qml
 StyledPopupView 1.0 StyledPopupView.qml
 StyledDialogView 1.0 StyledDialogView.qml
+StyledGroupBox 1.0 StyledGroupBox.qml
 StyledMenu 1.0 StyledMenu.qml
 StyledMenuItem 1.0 StyledMenuItem.qml
 StyledMenuLoader 1.0 StyledMenuLoader.qml

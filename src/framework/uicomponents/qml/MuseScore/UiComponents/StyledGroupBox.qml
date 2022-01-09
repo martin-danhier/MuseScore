@@ -20,29 +20,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "timesignaturepropertiesmodel.h"
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
 
-#include "ui/view/musicalsymbolcodes.h"
+import MuseScore.Ui 1.0
+import MuseScore.UiComponents 1.0
 
-using namespace mu::palette;
+GroupBox {
+    id: root
 
-void TimeSignaturePropertiesModel::load() {
-    int a = 2;
-}
+    property color borderColor: ui.theme.strokeColor
+    property int borderRadius: 5
 
-int TimeSignaturePropertiesModel::currentAppearanceType() const
-{
-    return m_currentAppearanceType;
-}
+    background: Rectangle {
+        // Position and size
+        y: root.topPadding - root.bottomPadding
+        width: root.width
+        height: parent.height - root.topPadding + root.bottomPadding
 
-void TimeSignaturePropertiesModel::setCurrentAppearanceType(int newType)
-{
-    auto appearanceType = static_cast<TimeSigAppearanceType>(newType);
-    if (m_currentAppearanceType == appearanceType) {
-        return;
+        // Border
+        color: "transparent"
+        border.color: root.borderColor
+        border.width: 1
+        radius: root.borderRadius
     }
 
-    m_currentAppearanceType = appearanceType;
-    emit currentAppearanceTypeChanged();
+    label: StyledTextLabel {
+        text: root.title
+    }
 }
-

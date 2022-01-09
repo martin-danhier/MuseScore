@@ -58,5 +58,6 @@
         <file>qml/MuseScore/UiComponents/VisibilityBox.qml</file>
         <file>qml/MuseScore/UiComponents/MenuMetrics.qml</file>
         <file>qml/MuseScore/UiComponents/PageIndicator.qml</file>
+        <file>qml/MuseScore/UiComponents/StyledGroupBox.qml</file>
     </qresource>
 </RCC>

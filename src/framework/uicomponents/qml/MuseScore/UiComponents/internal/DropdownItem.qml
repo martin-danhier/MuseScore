@@ -29,7 +29,11 @@ Item {
 
     id: root
 
+    property alias iconCode: iconItem.iconCode
+    property alias iconFontFamily: iconItem.font.family
+    property int iconFontPixelSize: 20
     property alias text: labelItem.text
+    property bool showText: true
 
     property bool selected: false
 
@@ -71,12 +75,37 @@ Item {
         NavigationFocusBorder { navigationCtrl: navCtrl }
     }
 
-    StyledTextLabel {
-        id: labelItem
+    // Labels
+
+    Row {
+        id: labelRow
         anchors.fill: parent
-        anchors.leftMargin: 12
-        horizontalAlignment: Text.AlignLeft
+
+        leftPadding: 12
+        rightPadding: 12
+        spacing: 12
+
+        StyledIconLabel {
+            id: iconItem
+            visible: root.iconCode != IconCode.NONE
+            iconCode: root.iconCode
+            font.pixelSize: root.iconFontPixelSize
+
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+        }
+
+        StyledTextLabel {
+            id: labelItem
+            visible: root.showText
+            horizontalAlignment: Text.AlignLeft
+
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+        }
     }
+
+    // Mouse events
 
     MouseArea {
         id: mouseAreaItem
