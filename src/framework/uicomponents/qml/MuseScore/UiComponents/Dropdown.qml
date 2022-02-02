@@ -87,10 +87,6 @@ Item {
             return def
         }
 
-        if (roleName === "icon") {
-            console.log(root.model[index])
-        }
-
         // Simple models (like JS array) with single predefined role name - modelData
         if (root.model[index] !== undefined) {
             if (root.model[index][roleName] === undefined) {

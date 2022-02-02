@@ -29,6 +29,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/exampleview.cpp
     ${CMAKE_CURRENT_LIST_DIR}/exampleview.h
     ${CMAKE_CURRENT_LIST_DIR}/commonscenetypes.h
+    ${CMAKE_CURRENT_LIST_DIR}/examplepaintview.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/examplepaintview.h
     )
 
 set(MODULE_LINK engraving)

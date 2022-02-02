@@ -131,6 +131,8 @@ signals:
 protected:
     void setNotation(INotationPtr notation);
     void setReadonly(bool readonly);
+    void setBackgroundColorOverride(const QColor& color);
+    void setConstraintCanvas(bool constraintCanvas);
 
     void moveCanvasToCenter();
     void moveCanvasToPosition(const PointF& logicPos);
@@ -213,6 +215,10 @@ private:
 
     qreal m_previousVerticalScrollPosition = 0;
     qreal m_previousHorizontalScrollPosition = 0;
+
+    bool m_constraintCanvas = false;
+    bool m_overrideBackground = false;
+    QColor m_backgroundColorOverride;
 };
 }
 

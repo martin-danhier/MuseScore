@@ -22,6 +22,7 @@
 #include "commonscenemodule.h"
 
 #include <QtQml>
+#include "examplepaintview.h"
 
 using namespace mu::commonscene;
 
@@ -38,4 +39,10 @@ std::string CommonSceneModule::moduleName() const
 void CommonSceneModule::registerResources()
 {
     commonscene_init_qrc();
+}
+
+void CommonSceneModule::registerUiTypes()
+{
+    // Register additional types
+    qmlRegisterType<ExamplePaintView>("MuseScore.CommonScene", 1, 0, "ExamplePaintView");
 }

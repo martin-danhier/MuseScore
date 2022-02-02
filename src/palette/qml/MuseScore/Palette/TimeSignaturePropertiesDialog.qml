@@ -35,7 +35,7 @@ StyledDialogView {
     title: qsTrc("palette", "Time Signature Properties")
 
     contentWidth: 779
-    contentHeight: 560
+    contentHeight: 640
     margins: 12
 
     TimeSignaturePropertiesModel {
@@ -53,24 +53,18 @@ StyledDialogView {
         spacing: 10
 
         // Appearance
-        StyledGroupBox {
-            title: qsTrc("palette", "Appearance (visual only; will not affect actual measure duration)")
+        TimeSignatureAppearanceSettings {
+            id: appearanceSettings
 
-            TimeSignatureAppearanceSettings {
-                timeSignatureModel: propertiesModel
-            }
+            timeSignatureModel: propertiesModel
         }
 
-        // Note groups
-        StyledGroupBox {
-            title: qsTrc("palette", "Note Groups")
+        // Beam groups
+        BeamGroups {
+            id: beamGroups
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            StyledTextLabel {
-                text: "placeholder"
-            }
         }
 
         RowLayout {

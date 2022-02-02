@@ -28,221 +28,225 @@ import MuseScore.Ui 1.0
 import MuseScore.UiComponents 1.0
 import MuseScore.Palette 1.0
 
-GridLayout {
-
+StyledGroupBox {
     id: root
+    title: qsTrc("palette", "Appearance (visual only; will not affect actual measure duration)")
+
     property TimeSignaturePropertiesModel timeSignatureModel: null
 
-    columns: 2
-    anchors.fill: parent
+    GridLayout {
 
-    RadioButtonGroup {
-        id: radioGroup
+        columns: 2
+        anchors.fill: parent
 
-        Layout.rowSpan: 4
-        Layout.fillHeight: true
-        Layout.preferredWidth: 60
+        RadioButtonGroup {
+            id: radioGroup
 
-        orientation: ListView.Vertical
+            Layout.rowSpan: 4
+            Layout.fillHeight: true
+            Layout.preferredWidth: 60
 
-        // Define the items of the list with components defined below
-        model: [
-            // Fraction
-            {
-                contentComponent: fractionComponent,
-                valueRole: TimeSignaturePropertiesModel.NORMAL
-            },
-            // Four four
-            {
-                contentComponent: fourFourComponent,
-                valueRole: TimeSignaturePropertiesModel.FOUR_FOUR
-            },
-            // Alla breve
-            {
-                contentComponent: allaBreveComponent,
-                valueRole: TimeSignaturePropertiesModel.ALLA_BREVE
-            },
-            // Other
-            {
-                contentComponent: otherComponent,
-                valueRole: TimeSignaturePropertiesModel.OTHER
-            },
-        ]
+            orientation: ListView.Vertical
 
-        // Wrap each component in a radio button
-        delegate: RoundedRadioButton {
-            id: timeFractionButton
+            // Define the items of the list with components defined below
+            model: [
+                // Fraction
+                {
+                    contentComponent: fractionComponent,
+                    valueRole: TimeSignaturePropertiesModel.NORMAL
+                },
+                // Four four
+                {
+                    contentComponent: fourFourComponent,
+                    valueRole: TimeSignaturePropertiesModel.FOUR_FOUR
+                },
+                // Alla breve
+                {
+                    contentComponent: allaBreveComponent,
+                    valueRole: TimeSignaturePropertiesModel.ALLA_BREVE
+                },
+                // Other
+                {
+                    contentComponent: otherComponent,
+                    valueRole: TimeSignaturePropertiesModel.OTHER
+                },
+            ]
 
-            checked: root.timeSignatureModel.currentAppearanceType === modelData.valueRole
+            // Wrap each component in a radio button
+            delegate: RoundedRadioButton {
+                id: timeFractionButton
 
-            // Spacing between the radio button and the text
-            spacing: 10
+                checked: root.timeSignatureModel.currentAppearanceType === modelData.valueRole
 
-            ButtonGroup.group: radioGroup.radioButtonGroup
+                // Spacing between the radio button and the text
+                spacing: 10
 
-            height: 30
-            width: parent.width
+                ButtonGroup.group: radioGroup.radioButtonGroup
 
-            contentComponent: modelData.contentComponent
+                height: 30
+                width: parent.width
 
-            navigation.row: model.index
-            navigation.column: 0
+                contentComponent: modelData.contentComponent
 
-            onToggled: {
-                root.timeSignatureModel.currentAppearanceType = modelData.valueRole
-            }
+                navigation.row: model.index
+                navigation.column: 0
 
-            onCheckedChanged: {
-                if (checked && !navigation.active) {
-                    navigation.requestActive()
+                onToggled: {
+                    root.timeSignatureModel.currentAppearanceType = modelData.valueRole
+                }
+
+                onCheckedChanged: {
+                    if (checked && !navigation.active) {
+                        navigation.requestActive()
+                    }
                 }
             }
+
+            // Define components used in the list
+
+            Component {
+                id: fractionComponent
+
+                StyledTextLabel {
+                    id: fractionLabel
+
+                    anchors.verticalCenter: parent.verticalCenter
+                    elide: Text.ElideNone
+                    horizontalAlignment: Text.AlignLeft
+                    text: qsTrc("palette", "Text:")
+                }
+            }
+
+            Component {
+                id: fourFourComponent
+
+                StyledIconLabel {
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.family: ui.theme.musicalFont.family
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignLeft
+                    iconCode: MusicalSymbolCodes.TIMESIG_COMMON
+                }
+            }
+
+            Component {
+                id: allaBreveComponent
+
+                StyledIconLabel {
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.family: ui.theme.musicalFont.family
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignLeft
+                    iconCode: MusicalSymbolCodes.TIMESIG_CUT
+                }
+            }
+
+            Component {
+                id: otherComponent
+
+                StyledTextLabel {
+                    id: otherLabel
+
+                    elide: Text.ElideNone
+                    anchors.verticalCenter: parent.verticalCenter
+                    horizontalAlignment: Text.AlignLeft
+                    text: qsTrc("palette", "Other:")
+                }
+            }
+
         }
 
-        // Define components used in the list
+        Row {
+            spacing: 5
+            height: 30
+            Layout.column: 1
 
-        Component {
-            id: fractionComponent
+            TextInputField {
+                height: parent.height
+                width: 80
+            }
 
             StyledTextLabel {
-                id: fractionLabel
-
+                text: "/"
                 anchors.verticalCenter: parent.verticalCenter
-                elide: Text.ElideNone
-                horizontalAlignment: Text.AlignLeft
-                text: qsTrc("palette", "Text:")
+            }
+
+            TextInputField {
+                height: parent.height
+                width: 80
             }
         }
 
-        Component {
-            id: fourFourComponent
+        Dropdown {
+            id: otherDropdown
 
-            StyledIconLabel {
-                anchors.verticalCenter: parent.verticalCenter
-                font.family: ui.theme.musicalFont.family
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignLeft
-                iconCode: MusicalSymbolCodes.TIMESIG_COMMON
-            }
+            currentIndex: 0
+            Layout.column: 1
+            Layout.row: 3
+
+            Layout.preferredWidth: 30 + otherDropdown.iconFontPixelSize
+
+            iconFontFamily: ui.theme.musicalFont.family
+            iconFontPixelSize: 30
+            showLabelText: false
+
+            model: [
+                // tempus perfectum, prol. perfecta
+                {
+                    text: qsTrc("palette", "Tempus perfectum, prol. perfecta"),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_1,
+                    value: TimeSignaturePropertiesModel.PROLATION_1
+                },
+                // tempus perfectum, prol. imperfecta
+                {
+                    text: qsTrc("palette", "Tempus perfectum, prol. imperfecta"),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_2,
+                    value: TimeSignaturePropertiesModel.PROLATION_2
+                },
+                // tempus perfectum, prol. imperfecta, dimin.
+                {
+                    text: qsTrc("palette", "Tempus perfectum, prol. imperfecta, dimin."),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_3,
+                    value: TimeSignaturePropertiesModel.PROLATION_3
+                },
+                // tempus perfectum, prol. perfecta, dimin.
+                {
+                    text: qsTrc("palette", "Tempus perfectum, prol. perfecta, dimin."),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_4,
+                    value: TimeSignaturePropertiesModel.PROLATION_4
+                },
+                // tempus imperf. prol. perfecta
+                {
+                    text: qsTrc("palette", "Tempus imperf. prol. perfecta"),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_5,
+                    value: TimeSignaturePropertiesModel.PROLATION_5
+                },
+                // tempus imperf., prol. imperfecta, reversed
+                {
+                    text: qsTrc("palette", "Tempus imperf., prol. imperfecta, reversed"),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_7,
+                    value: TimeSignaturePropertiesModel.PROLATION_7
+                },
+                // tempus imperf., prol. perfecta, dimin.
+                {
+                    text: qsTrc("palette", "Tempus imperf., prol. perfecta, dimin."),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_8,
+                    value: TimeSignaturePropertiesModel.PROLATION_8
+                },
+                // tempus imperf., prol imperfecta, dimin., reversed
+                {
+                    text: qsTrc("palette", "Tempus imperf., prol imperfecta, dimin., reversed"),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_10,
+                    value: TimeSignaturePropertiesModel.PROLATION_10
+                },
+                // tempus imperf., prol. perfecta, reversed
+                {
+                    text: qsTrc("palette", "Tempus imperf., prol. perfecta, reversed"),
+                    icon: MusicalSymbolCodes.MENSURAL_PROLATION_11,
+                    value: TimeSignaturePropertiesModel.PROLATION_11
+                },
+            ]
+
         }
-
-        Component {
-            id: allaBreveComponent
-
-            StyledIconLabel {
-                anchors.verticalCenter: parent.verticalCenter
-                font.family: ui.theme.musicalFont.family
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignLeft
-                iconCode: MusicalSymbolCodes.TIMESIG_CUT
-            }
-        }
-
-        Component {
-            id: otherComponent
-
-            StyledTextLabel {
-                id: otherLabel
-
-                elide: Text.ElideNone
-                anchors.verticalCenter: parent.verticalCenter
-                horizontalAlignment: Text.AlignLeft
-                text: qsTrc("palette", "Other:")
-            }
-        }
-
-    }
-
-    Row {
-        spacing: 5
-        height: 30
-        Layout.column: 1
-
-        TextInputField {
-            height: parent.height
-            width: 80
-        }
-
-        StyledTextLabel {
-            text: "/"
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        TextInputField {
-            height: parent.height
-            width: 80
-        }
-    }
-
-    Dropdown {
-        id: otherDropdown
-
-        currentIndex: 0
-        Layout.column: 1
-        Layout.row: 3
-
-        Layout.preferredWidth: 30 + otherDropdown.iconFontPixelSize
-
-        iconFontFamily: ui.theme.musicalFont.family
-        iconFontPixelSize: 30
-        showLabelText: false
-
-        model: [
-            // tempus perfectum, prol. perfecta
-            {
-                text: qsTrc("palette", "Tempus perfectum, prol. perfecta"),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_1,
-                value: TimeSignaturePropertiesModel.PROLATION_1
-            },
-            // tempus perfectum, prol. imperfecta
-            {
-                text: qsTrc("palette", "Tempus perfectum, prol. imperfecta"),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_2,
-                value: TimeSignaturePropertiesModel.PROLATION_2
-            },
-            // tempus perfectum, prol. imperfecta, dimin.
-            {
-                text: qsTrc("palette", "Tempus perfectum, prol. imperfecta, dimin."),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_3,
-                value: TimeSignaturePropertiesModel.PROLATION_3
-            },
-            // tempus perfectum, prol. perfecta, dimin.
-            {
-                text: qsTrc("palette", "Tempus perfectum, prol. perfecta, dimin."),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_4,
-                value: TimeSignaturePropertiesModel.PROLATION_4
-            },
-            // tempus imperf. prol. perfecta
-            {
-                text: qsTrc("palette", "Tempus imperf. prol. perfecta"),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_5,
-                value: TimeSignaturePropertiesModel.PROLATION_5
-            },
-            // tempus imperf., prol. imperfecta, reversed
-            {
-                text: qsTrc("palette", "Tempus imperf., prol. imperfecta, reversed"),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_7,
-                value: TimeSignaturePropertiesModel.PROLATION_7
-            },
-            // tempus imperf., prol. perfecta, dimin.
-            {
-                text: qsTrc("palette", "Tempus imperf., prol. perfecta, dimin."),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_8,
-                value: TimeSignaturePropertiesModel.PROLATION_8
-            },
-            // tempus imperf., prol imperfecta, dimin., reversed
-            {
-                text: qsTrc("palette", "Tempus imperf., prol imperfecta, dimin., reversed"),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_10,
-                value: TimeSignaturePropertiesModel.PROLATION_10
-            },
-            // tempus imperf., prol. perfecta, reversed
-            {
-                text: qsTrc("palette", "Tempus imperf., prol. perfecta, reversed"),
-                icon: MusicalSymbolCodes.MENSURAL_PROLATION_11,
-                value: TimeSignaturePropertiesModel.PROLATION_11
-            },
-        ]
-
     }
 }

@@ -412,6 +412,12 @@ void NotationPaintView::onNotationSetup()
 void NotationPaintView::paintBackground(const RectF& rect, draw::Painter* painter)
 {
     TRACEFUNC;
+
+    if (m_overrideBackground) {
+        painter->fillRect(rect, m_backgroundColorOverride);
+        return;
+    }
+
     QString wallpaperPath = configuration()->backgroundWallpaperPath().toQString();
 
     if (configuration()->backgroundUseColor() || wallpaperPath.isEmpty()) {
@@ -686,7 +692,9 @@ bool NotationPaintView::moveCanvas(qreal dx, qreal dy)
         return false;
     }
 
-    auto [correctedDX, correctedDY] = constraintCanvas(dx, dy);
+    // Most of the time, constraint the canvas (prevent from overscrolling)
+    // Sometimes, like in examples, we want to be able to programmatically move the canvas without constraints
+    auto [correctedDX, correctedDY] = m_constraintCanvas ? constraintCanvas(dx, dy) : std::pair(dx, dy);
     if (qFuzzyIsNull(correctedDX) && qFuzzyIsNull(correctedDY)) {
         return false;
     }
@@ -890,6 +898,17 @@ void NotationPaintView::setNotation(INotationPtr notation)
 void NotationPaintView::setReadonly(bool readonly)
 {
     m_inputController->setReadonly(readonly);
+}
+
+void NotationPaintView::setBackgroundColorOverride(const QColor& color)
+{
+    m_overrideBackground = true;
+    m_backgroundColorOverride = color;
+}
+
+void NotationPaintView::setConstraintCanvas(bool constraintCanvas)
+{
+    m_constraintCanvas = constraintCanvas;
 }
 
 void NotationPaintView::clear()
